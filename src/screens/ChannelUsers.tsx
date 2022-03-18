@@ -3,23 +3,26 @@ import React, { useEffect, useState } from "react";
 import { DefaultUserType, useChatContext } from "stream-chat-expo";
 import UserListItem from "../components/UserListItem";
 import { useAuthContext } from "../contexts/AuthContext";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-const UserList = () => {
+const ChannelUsers = () => {
+  const route = useRoute();
   const { client } = useChatContext();
   const [users, setUsers] = useState<DefaultUserType[]>([]);
   const { userId } = useAuthContext();
   const navigation = useNavigation();
 
+  const channel = route.params.channel;
+
   const fetchUsers = async () => {
-    const response = await client.queryUsers({});
+    const response = await channel.queryMembers({});
     console.log(response);
-    setUsers(response.users);
+    setUsers(response.members);
   };
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [channel]);
 
   const createChannel = async (user) => {
     const channel = client.channel("messaging", {
@@ -33,11 +36,12 @@ const UserList = () => {
   return (
     <FlatList
       data={users}
+      keyExtractor={({ user }) => user.id}
       renderItem={({ item }) => (
-        <UserListItem user={item} onPress={createChannel} />
+        <UserListItem user={item.user} onPress={createChannel} />
       )}
     />
   );
 };
 
-export default UserList;
+export default ChannelUsers;

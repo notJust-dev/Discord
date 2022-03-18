@@ -9,7 +9,10 @@ import { ChannelList } from "stream-chat-expo";
 import Colors from "../constants/Colors";
 import { useAuthContext } from "../contexts/AuthContext";
 import ChannelScreen from "../screens/ChannelScreen";
+import ChannelUsers from "../screens/ChannelUsers";
+import NewGroup from "../screens/NewGroup";
 import UserList from "../screens/UserList";
+import { FontAwesome } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,12 +22,36 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="ChannelScreen"
         component={ChannelScreen}
-        options={{ title: "Channel" }}
+        options={({ navigation, route }) => ({
+          title: "Channel",
+          headerRight: () =>
+            route?.params?.channel && (
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("ChannelMembers", {
+                    channel: route.params.channel,
+                  })
+                }
+              >
+                <FontAwesome name="users" size={24} color="lightgray" />
+              </Pressable>
+            ),
+        })}
       />
       <Drawer.Screen
         name="Users"
         component={UserList}
         options={{ title: "Users" }}
+      />
+      <Drawer.Screen
+        name="NewGroup"
+        component={NewGroup}
+        options={{ title: "Create group" }}
+      />
+      <Drawer.Screen
+        name="ChannelMembers"
+        component={ChannelUsers}
+        options={{ title: "Members" }}
       />
     </Drawer.Navigator>
   );
@@ -41,9 +68,10 @@ const CustomDrawerContent = (props) => {
 
   const { userId } = useAuthContext();
 
-  const filters = { members: { $in: [userId] } };
-  const publicFilters = { type: "livestream" };
-  console.log(filters);
+  const filters = { members: { $in: [userId] }, type: "messaging" };
+  const publicFilters = {
+    type: { $ne: "messaging" },
+  };
 
   return (
     <SafeAreaView {...props} style={{ flex: 1 }}>
@@ -66,12 +94,20 @@ const CustomDrawerContent = (props) => {
           ]}
           onPress={() => setTab("private")}
         >
-          Your channels
+          Private
         </Text>
       </View>
 
       {tab === "public" ? (
-        <ChannelList onSelect={onChannelSelect} filters={publicFilters} />
+        <>
+          <ChannelList onSelect={onChannelSelect} filters={publicFilters} />
+          <Pressable
+            onPress={() => navigation.navigate("NewGroup")}
+            style={styles.btn}
+          >
+            <Text>Start a new groups</Text>
+          </Pressable>
+        </>
       ) : (
         <>
           <ChannelList onSelect={onChannelSelect} filters={filters} />

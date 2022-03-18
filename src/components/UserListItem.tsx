@@ -3,22 +3,9 @@ import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useChatContext } from "stream-chat-expo";
 import { useAuthContext } from "../contexts/AuthContext";
 
-const UserListItem = ({ user }) => {
-  const { client } = useChatContext();
-  const { userId } = useAuthContext();
-  const navigation = useNavigation();
-
-  const createChannel = async () => {
-    const channel = client.channel("messaging", {
-      members: [userId, user.id],
-    });
-    await channel.create();
-
-    navigation.navigate("ChannelScreen", { channel });
-  };
-
+const UserListItem = ({ user, onPress }) => {
   return (
-    <Pressable style={styles.userContainer} onPress={createChannel}>
+    <Pressable style={styles.userContainer} onPress={() => onPress(user)}>
       <Image source={{ uri: user.image }} style={styles.image} />
 
       <View>
