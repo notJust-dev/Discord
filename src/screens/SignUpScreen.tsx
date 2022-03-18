@@ -1,3 +1,4 @@
+import { Auth } from "aws-amplify";
 import { useState } from "react";
 import {
   Text,
@@ -21,6 +22,7 @@ const SignUpScreen = () => {
 
   const connectUser = async () => {
     // sign in with your backend and get the user token
+
 
     await client.connectUser(
       {

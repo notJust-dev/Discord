@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "discord",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/vadim/Projects/Youtube/Discord/amplify/backend/api/discord/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authDiscord"
+    }
+  }
+}
