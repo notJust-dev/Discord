@@ -8,7 +8,7 @@ const ChannelScreen = () => {
   const navigation = useNavigation();
   const channel = route.params?.channel;
 
-  navigation.setOptions({ title: channel?.data?.name || "Channel" });
+  // navigation.setOptions({ title: channel?.data?.name || "Channel" });
 
   if (!channel) {
     return (
@@ -19,7 +19,7 @@ const ChannelScreen = () => {
   }
 
   return (
-    <Channel channel={channel} key={channel.data.name}>
+    <Channel channel={channel} key={channel.data.id}>
       <MessageList />
       <MessageInput />
     </Channel>
