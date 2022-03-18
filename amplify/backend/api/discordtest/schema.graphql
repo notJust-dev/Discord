@@ -1,0 +1,4 @@
+# A query that returns the arguments
+type Query {
+  getToken(msg: String): String @function(name: "discordtest47a197d1-${env}")
+}

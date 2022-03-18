@@ -1,0 +1,28 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-discordtest-staging-91632-authRole",
+      "UnauthRoleArn": "arn:aws:iam::704219588443:role/amplify-discordtest-staging-91632-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::704219588443:role/amplify-discordtest-staging-91632-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-discordtest-staging-91632-deployment",
+      "UnauthRoleName": "amplify-discordtest-staging-91632-unauthRole",
+      "StackName": "amplify-discordtest-staging-91632",
+      "StackId": "arn:aws:cloudformation:eu-west-1:704219588443:stack/amplify-discordtest-staging-91632/1aacbd40-a69c-11ec-aec9-06b61ec2ffd7",
+      "AmplifyAppId": "d1irekxzfu01r7"
+    },
+    "categories": {
+      "auth": {
+        "DiscordTest": {}
+      },
+      "function": {
+        "discordtest47a197d1": {
+          "deploymentBucketName": "amplify-discordtest-staging-91632-deployment",
+          "s3Key": "amplify-builds/discordtest47a197d1-592b4c4d4a584555634e-build.zip",
+          "streamKey": "tmdq3ta7ah6k",
+          "streamSecret": "nqdftydm8de4xs3en6h7xvexdceu55etny447yuy7nqp62u9e3uqgysd33cev8hw"
+        }
+      }
+    }
+  }
+}
