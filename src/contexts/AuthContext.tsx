@@ -1,6 +1,7 @@
 import { Auth } from "aws-amplify";
 import { createContext, useState, useContext, useEffect } from "react";
 import { StreamChat } from "stream-chat";
+import { Chat } from "stream-chat-expo";
 
 const AuthContext = createContext({
   userId: null,
@@ -15,23 +16,26 @@ const AuthContextComponent = ({ children }) => {
 
   const connectUser = async () => {
     const userData = await Auth.currentAuthenticatedUser();
-    console.log(userData);
-    console.log(Object.getPrototypeOf(userData));
     const { sub, email } = userData.attributes;
     // sign in with your backend and get the user token
-
-    await client.connectUser(
-      {
-        id: sub,
-        name: email,
-        image:
-          "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/elon.png",
-      },
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODQ5NGEzNWEtNWFiOC00NjZmLTk3OWUtYmE2MmIzNmRjYzQxIn0.bwnwGu14AdmceJfstIwe7PWLjsAHtBzBOUxlprzQ9Dg"
-    );
+    console.log("connecting user");
+    try {
+      await client.connectUser(
+        {
+          id: sub,
+          name: email,
+          image:
+            "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/elon.png",
+        },
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODQ5NGEzNWEtNWFiOC00NjZmLTk3OWUtYmE2MmIzNmRjYzQxIn0.bwnwGu14AdmceJfstIwe7PWLjsAHtBzBOUxlprzQ9Dg"
+      );
+    } catch (e) {
+      console.log("error", e);
+    }
 
     const channel = client.channel("livestream", "public", { name: "Public" });
     await channel.watch();
+    console.log("seeting user id");
     setUserId(sub);
   };
 
@@ -43,10 +47,12 @@ const AuthContextComponent = ({ children }) => {
       client.disconnectUser();
     };
   }, []);
-  console.log(userId);
+
+  console.log("userId", userId);
+
   return (
     <AuthContext.Provider value={{ userId, setUserId }}>
-      {children}
+      <Chat client={client}>{children}</Chat>
     </AuthContext.Provider>
   );
 };

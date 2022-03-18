@@ -15,14 +15,19 @@ import awsconfig from "./src/aws-exports";
 import { StreamChat } from "stream-chat";
 import AuthContextComponent from "./src/contexts/AuthContext";
 
-Amplify.configure(awsconfig);
+Amplify.configure({
+  ...awsconfig,
+  Analytics: {
+    disabled: true,
+  },
+});
 
 const theme: DeepPartial<Theme> = {
   colors: StreamColors,
 };
 
-const API_KEY = "tmdq3ta7ah6k";
-const client = StreamChat.getInstance(API_KEY);
+// const API_KEY = "tmdq3ta7ah6k";
+// const client = StreamChat.getInstance(API_KEY);
 
 function App() {
   const isLoadingComplete = useCachedResources();
@@ -34,9 +39,7 @@ function App() {
       <SafeAreaProvider>
         <OverlayProvider value={{ style: theme }}>
           <AuthContextComponent>
-            <Chat client={client}>
-              <Navigation colorScheme={"dark"} />
-            </Chat>
+            <Navigation colorScheme={"dark"} />
           </AuthContextComponent>
         </OverlayProvider>
         <StatusBar style="light" />

@@ -43,8 +43,10 @@ function RootNavigator() {
   const { userId } = useAuthContext();
 
   if (!userId) {
+    console.log("No user id");
     return <ActivityIndicator />;
   }
+  console.log("User id: ", userId);
   return (
     <Stack.Navigator>
       <Stack.Screen

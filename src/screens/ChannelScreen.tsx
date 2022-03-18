@@ -17,9 +17,9 @@ const ChannelScreen = () => {
       </View>
     );
   }
-
+  console.log(channel.data.id);
   return (
-    <Channel channel={channel} key={channel.data.name}>
+    <Channel channel={channel} key={channel.data.id}>
       <MessageList />
       <MessageInput />
     </Channel>

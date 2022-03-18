@@ -24,6 +24,7 @@
     "@react-navigation/native-stack": "^6.1.0",
     "aws-amplify": "^4.3.16",
     "aws-amplify-react-native": "^6.0.3",
+    "da": "^0.0.3",
     "expo": "~44.0.0",
     "expo-asset": "~8.4.4",
     "expo-blur": "~11.0.0",
@@ -53,6 +54,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@expo/metro-config": "^0.3.12",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "jest": "^26.6.3",
