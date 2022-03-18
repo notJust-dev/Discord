@@ -1,4 +1,6 @@
 import "react-native-gesture-handler";
+import "react-native-get-random-values";
+
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
