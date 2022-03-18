@@ -32,6 +32,7 @@ const CustomDrawerContent = (props) => {
 
   const filters = { members: { $in: [userId] } };
   const publicFilters = { type: "livestream" };
+  console.log(filters);
 
   return (
     <SafeAreaView {...props} style={{ flex: 1 }}>
@@ -57,7 +58,6 @@ const styles = StyleSheet.create({
   groupTitle: {
     color: "white",
     margin: 10,
-    
   },
 });
 
